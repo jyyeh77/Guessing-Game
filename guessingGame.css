@@ -1,12 +1,14 @@
-body {
-background-image: url(http://all4desktop.com/data_images/original/4162450-dark-knight-batman-batpod-HD.jpg); /*You will specify your image path here.*/
 
--moz-background-size: cover;
--webkit-background-size: cover;
+
+body {
+background-image: url(http://all4desktop.com/data_images/original/4162450-dark-knight-batman-batpod-HD.jpg);
+
+
 background-size: cover;
 background-position: top center !important;
 background-repeat: no-repeat !important;
 background-attachment: fixed;
+
 }
 
 h1{
@@ -15,8 +17,13 @@ h1{
 
 h2{
   color: red;
+  border-style: solid;
+  border-width: medium;
+  padding: 10px;
 }
 
-button{
-  display: inline;
+p{
+  color: white;
 }
+
+.row {text-align: center}

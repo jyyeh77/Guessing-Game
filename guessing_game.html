@@ -4,18 +4,38 @@
 <html>
 <head>
   <title>Guessing Game</title>
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+
+  <!--put custom css style sheet to modify bootstrap-->
   <link rel="stylesheet" type="text/css" href="guessingGame.css" />
 </head>
+
 <body>
-  <h1>Foundations Guessing Game</h1>
-    <h2>Help Batman defeat the Riddler by guessing the number of bombs in Gotham!</h2>
-    <form>
-      <input type="text" name="guess"><br>
-      <input type="submit" value="Submit">
-    </form>
-  <br>
-  <button type="button">Guess Again!</button>
-  <button type="button">Here's some help, but it'll cost you!</button>
+  <script src='guessingGame.js'></script>
+  <div class="container container-center-block">
+    <div class="row">
+      <h1>Foundations Guessing Game</h1>
+      <h2>Help Batman defeat the Riddler by guessing the number of bombs in Gotham!</h2>
+      <form>
+        <input type="text" id="guess" value=''>
+        <p>Input a number between 1-100</p><br>
+        <button type="button" onclick="playersGuessSubmission()">Enter your guess</button>
+      </form>
+      <br>
+      <div class="panel panel-primary">
+        <div class="panel-body" id="status"><strong>Status Report</strong></div>
+      </div>
+      <button type="button" class="btn btn-default btn-lg">Guess Again!</button><br>
+      <button type="button" class="btn btn-danger btn-lg" id="hintbutton">Here's some help, but it'll cost you!</button>
+    </div>
+  </div>
+
+
 
 
 </body>
