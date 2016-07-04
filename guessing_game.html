@@ -24,7 +24,7 @@
     <div class="row">
       <h1>Foundations Guessing Game</h1>
       <h2>Help Batman defeat the Riddler by guessing the number of bombs in Gotham!</h2>
-      <form>
+      <form id="inputForm">
         <input type="text" id="guess" value=''>
         <p>Input a number between 1-100</p><br>
         <button type="button" id="submitButton">Enter your guess</button>
@@ -48,6 +48,15 @@
         <div class="panel panel-primary">
           <div class="panel-body" style="max-height: 10;" id="prevGuesses">
           Previous Guesses
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-6">
+      <div class = "panel panel-sucess">
+        <div class="panel-body" id="hintBox">Hints
         </div>
       </div>
     </div>
