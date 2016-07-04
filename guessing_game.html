@@ -16,22 +16,47 @@
 </head>
 
 <body>
+
+  <!--loads javascript file-->
   <script src='guessingGame.js'></script>
-  <div class="container container-center-block">
+
+  <div class="container container-center-block" id="main">
     <div class="row">
       <h1>Foundations Guessing Game</h1>
       <h2>Help Batman defeat the Riddler by guessing the number of bombs in Gotham!</h2>
       <form>
         <input type="text" id="guess" value=''>
         <p>Input a number between 1-100</p><br>
-        <button type="button" onclick="playersGuessSubmission()">Enter your guess</button>
-      </form>
-      <br>
-      <div class="panel panel-primary">
-        <div class="panel-body" id="status"><strong>Status Report</strong></div>
+        <button type="button" id="submitButton">Enter your guess</button>
+      </form></br>
+
+
+    <div class="row">
+      <div class="col-sm-4">
+        <div class="panel panel-primary">
+          <div class="panel-body" style="max-height: 10;" id="status"><strong>Status Report</strong></div>
+        </div>
       </div>
-      <button type="button" class="btn btn-default btn-lg">Guess Again!</button><br>
-      <button type="button" class="btn btn-danger btn-lg" id="hintbutton">Here's some help, but it'll cost you!</button>
+      <div class="col-sm-4">
+        <div class="panel panel-primary">
+          <div class="panel-body" style="max-height: 10;" id="guessTracker">
+          Guesses Left
+      </div>
+    </div>
+  </div>
+      <div class="col-sm-4">
+        <div class="panel panel-primary">
+          <div class="panel-body" style="max-height: 10;" id="prevGuesses">
+          Previous Guesses
+        </div>
+      </div>
+    </div>
+  </div>
+
+      <div class="btn-group" id="bottomButtons">
+        <a class="btn btn-default btn-lg" id="restart">Play again!</a>
+        <a class="btn btn-danger btn-lg" id="hintbutton">Here's some help, but it'll cost you!</a>
+      </div>
     </div>
   </div>
 

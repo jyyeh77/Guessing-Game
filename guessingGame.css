@@ -16,6 +16,8 @@ h1{
 }
 
 h2{
+
+  position:relative;
   color: red;
   border-style: solid;
   border-width: medium;
@@ -27,3 +29,28 @@ p{
 }
 
 .row {text-align: center}
+
+#defeat{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#victorytext{
+  position: absolute;
+  bottom: 450px;
+  font-size:36px;
+  font-family:"vedana";
+  left: 300px;
+  color: #ffffff;
+}
+
+#defeattext{
+  position: absolute;
+  bottom: 450px;
+  font-size: 30px;
+  font-family:"garamond";
+  left: 470px;
+  color: #ffffff;
+  font-weight: bold;
+}
