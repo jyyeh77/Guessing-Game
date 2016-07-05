@@ -5,16 +5,16 @@
 var playersGuess;
 
 // Alternative to using global variables
-var globalNamespace = function(guesses, storage){
+var globalNamespace = function(guesses, storage, hints){
     this.winningNumber = generateWinningNumber();
     this.guesses = guesses;
     this.storage = storage;
+    this.hints = hints;
   };
 
 // stores max guesses and previous guesses in array parameter
-var generator = new globalNamespace(5, []);
+var generator = new globalNamespace(5, [], 0);
 
-console.log(generator.winningNumber);
 
 /* **** Guessing Game Functions **** */
 
@@ -29,7 +29,6 @@ function generateWinningNumber(){
 
 function playersGuessSubmission(){
 
-  $('hintBox').hide();
   // converts text box string input into integer
   playersGuess = parseInt($('#guess').val());
 
@@ -76,14 +75,21 @@ function temperature(distance){
                         hottest:5,
                         blazing:1};
 
+   // object to hold closest marker of guess
    var storage = {};
+
+   // finds closest range of guess by iterating through each property of distanceRanges
    for (var key in distanceRanges){
        for (var keyCopy in distanceRanges){
+
+            // updates storage object with the closest distanceRanges property
             if (range(distance, distanceRanges[key], distanceRanges[keyCopy])){
                   storage[distance] = [keyCopy, distanceRanges[keyCopy]];
             }
         }
     }
+
+    // returns storage object in format {guess distance: [temperature, closest numerical marker]}
     return storage;
 }
 
@@ -97,18 +103,13 @@ function range(num, start, end){
 
 function checkGuess(){
   var guessesLeft;
+
+  // checks for duplicate guesses
   var isDuplicate = checkDuplicate(generator.storage, playersGuess);
 
   // player wins if guess matches random winning number
   if (absDistance() == 0){
-    $(document).ready(function(){
-      $('h2').hide();
-      $('#hintbutton').hide();
-      $('form').hide();
-      $('#status').text("You win!");
-      $('h1').append('<img id="victory" src="http://media.philly.com/images/The-Dark-Knight-Rises-Trailer-fan-made.jpg"/>');
-      $('#main').append('<p id="victorytext">Victory is yours, Batman.</p>');
-    });
+    winnerDOM();
   }
 
   // if player's guess isn't the winning number and isn't a duplicate
@@ -119,6 +120,8 @@ function checkGuess(){
     if (guessesLeft > 0){
       // checks for 'temperature' and range of player guess
       var runTemp = temperature(absDistance());
+
+
       var checkTemp = runTemp[absDistance()][0];
       var numRange = runTemp[absDistance()][1];
 
@@ -128,12 +131,7 @@ function checkGuess(){
 
     // player loses when guessesLeft becomes 0
     else {
-      $('#status').text("YOU LOSE! Gotham is doomed")
-      $('#guessTracker').text("Guesses left: " + guessesLeft);
-      $('form').hide();
-      $('h2').hide();
-      $('h1').append('<img id="defeat" src="http://img.cinemablend.com/cb/9/7/c/5/1/4/97c5142f33b4a0319907dd2033e13701f69e7e6094d22bbc57c150b3be0a1273.jpg"/>');
-      $('#main').append('<p id="defeattext">Riddle me this, Batman. Who lost? YOU DID!</p>');
+      loserDOM();
     }
   }
   else {
@@ -141,10 +139,39 @@ function checkGuess(){
   }
 }
 
+// updates DOM to show victory
+
+function winnerDOM(){
+  $(document).ready(function(){
+    $('h2').hide();
+    $('#hintbutton').hide();
+    $('#hintBox').hide();
+    $('form').hide();
+    $('#status').text("You win!");
+    $('h1').append('<img id="victory" src="http://media.philly.com/images/The-Dark-Knight-Rises-Trailer-fan-made.jpg"/>');
+    $('#main').append('<p id="victorytext">Victory is yours, Batman.</p>');
+  });
+}
+
+// updates DOM to show defeat
+
+function loserDOM(){
+  $(document).ready(function(){
+    $('#status').text("YOU LOSE! Gotham is doomed")
+    $('#guessTracker').text("Guesses left: " + "0");
+    $('hintButton').hide();
+    $('hintBox').hide();
+    $('form').hide();
+    $('h2').hide();
+    $('h1').append('<img id="defeat" src="http://img.cinemablend.com/cb/9/7/c/5/1/4/97c5142f33b4a0319907dd2033e13701f69e7e6094d22bbc57c150b3be0a1273.jpg"/>');
+    $('#main').append('<p id="defeattext">Riddle me this, Batman. Who lost? YOU DID!</p>');
+
+  });
+}
 // counts number of guesses
 
 function guessCount(){
-  return generator.guesses - generator.storage.length;
+  return generator.guesses - generator.storage.length - generator.hints;
 }
 
 // checks for guess duplicates
@@ -173,10 +200,16 @@ function guessDisplay(){
 // Create a provide hint button that provides additional clues to the "Player"
 
 function provideHint(num){
-  $('#hintBox').show();
+
+  // increments number of hints used
+  generator.hints++;
+
   var hintsArray = [];
 
+  // creates Array with the winning number included between random numbers from 1 to 100
   for (var i = 0; i < num; i++){
+
+    // puts winning number in middle of array
     if (i === Math.floor(num / 2)){
       hintsArray.push(generator.winningNumber);
     }
@@ -184,8 +217,25 @@ function provideHint(num){
       hintsArray.push(Math.floor(Math.random() * 100) + 1);
     }
   }
+
+  // shuffles array with winning number
   hintsArray = shuffle(hintsArray);
-  $('#hintBox').text("One of these is the winning number, Dark Knight: choose carefully! " + hintsArray);
+
+  // updates DOM to show array with hint numbers if there are guesses left
+  if (guessCount() > 0){
+
+    $('#hintBox').text("One of these is the winning number, Dark Knight: choose carefully! " + hintsArray.join(', '));
+    $('#guessTracker').text("Guesses Left: " + guessCount());
+  }
+
+  // hides hint button if there are no guesses left and uploads defeat message
+  else {
+    $('#guessTracker').text("Guesses Left: " + guessCount());
+    $('#hintbutton').hide();
+    $('#hintBox').hide();
+    loserDOM();
+  }
+
 }
 
 
@@ -225,11 +275,13 @@ function playAgain(){
 
 $(document).ready(function(){
 
-  $('#hintBox').hide();
+
   // allows player to use enter key instead of clicking to submit guess
   $('#guess').on("keypress", function(e) {
      var code = (e.keyCode ? e.keyCode : e.which);
      if (code == 13) {
+
+        // prevents implicit submission when pressing Enter key in HTML form
         e.preventDefault();
         e.stopPropagation();
         $('#submitButton').submit(playersGuessSubmission());
@@ -241,7 +293,8 @@ $(document).ready(function(){
 
   // provides hint if hint button clicked
   $('#hintbutton').on('click', function(){
-    provideHint(guessCount());
+    provideHint(guessCount()+1);
+
   });
 
   //restarts Game

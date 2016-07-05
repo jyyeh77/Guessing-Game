@@ -5,6 +5,7 @@
 <head>
   <title>Guessing Game</title>
 
+  <!--Bootstrap links-->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
@@ -30,36 +31,34 @@
         <button type="button" id="submitButton">Enter your guess</button>
       </form></br>
 
-
+    <!--Main information panels-->
     <div class="row">
-      <div class="col-sm-4">
+      <div class="col-sm-3">
         <div class="panel panel-primary">
           <div class="panel-body" style="max-height: 10;" id="status"><strong>Status Report</strong></div>
         </div>
       </div>
-      <div class="col-sm-4">
+      <div class="col-sm-3">
         <div class="panel panel-primary">
           <div class="panel-body" style="max-height: 10;" id="guessTracker">
           Guesses Left
       </div>
     </div>
   </div>
-      <div class="col-sm-4">
+      <div class="col-sm-3">
         <div class="panel panel-primary">
           <div class="panel-body" style="max-height: 10;" id="prevGuesses">
           Previous Guesses
         </div>
       </div>
     </div>
-  </div>
-
-  <div class="row">
-    <div class="col-sm-6">
-      <div class = "panel panel-sucess">
-        <div class="panel-body" id="hintBox">Hints
-        </div>
+    <div class="col-sm-3">
+      <div class="panel panel-primary">
+        <div class="panel-body" style="max-height: 10;" id="hintBox">
+        <strong>Riddle Box</strong>
       </div>
     </div>
+  </div>
   </div>
 
       <div class="btn-group" id="bottomButtons">

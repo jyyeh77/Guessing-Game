@@ -30,7 +30,17 @@ p{
 
 .row {text-align: center}
 
+.panel {
+  border: 0;
+}
+
 #defeat{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#victory{
   display: block;
   margin-left: auto;
   margin-right: auto;
@@ -41,7 +51,7 @@ p{
   bottom: 450px;
   font-size:36px;
   font-family:"vedana";
-  left: 300px;
+  left: 550px;
   color: #ffffff;
 }
 
